@@ -7,7 +7,7 @@ build_release:
   script:
     - cargo build --release
   artifacts:
-    name: "Pumpkinki-builds-$CI_COMMIT_REF_NAME"
+    name: "Pumpkinki-builds-$CI_COMMIT_SHORT_SHA"
     expire_in: 1 days
     paths:
       - target/release/
