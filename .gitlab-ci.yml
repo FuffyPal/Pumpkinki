@@ -33,4 +33,4 @@ build_job:
       - target/release/
   rules: 
     - changes: 
-        - Cargo.toml
+        - src/*
