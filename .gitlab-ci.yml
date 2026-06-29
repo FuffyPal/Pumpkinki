@@ -15,22 +15,18 @@ build_job:
 
   script:
     #  LINUX for COMPILE
-    - GOOS=linux GOARCH=amd64 go build -o build/Pumpkinki_linux ./src
-
-    #  LINUX for COMPILE (ARM)
-    - GOOS=linux GOARCH=arm64 go build -o build/Pumpkinki_linux_arm64 ./src
+    - GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o build/Pumpkinki_linux ./src
+    - GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o build/Pumpkinki_linux_arm64 ./src
 
     #  WINDOWS for COMPILE (.exe)
-    - GOOS=windows GOARCH=amd64 go build -o build/Pumpkinki_windows.exe ./src
+    - GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o build/Pumpkinki_windows.exe ./src
+    - GOOS=windows GOARCH=arm64 go build -ldflags="-s -w" -o build/Pumpkinki_windows_arm64.exe ./src
+
+    #  macOS for COMPILE
+    - GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o build/Pumpkinki_mac_intel ./src
+    - GOOS=darwin GOARCH=arm64 go build -ldflags="-s -w" -o build/Pumpkinki_mac_arm64 ./src
   
-    # WINDOWS for COMPILE (ARM)
-    - GOOS=windows GOARCH=arm64 go build -o build/Pumpkinki_windows_arm64.exe ./src
-
-    #  macOS for COMPILE (Intel CPUs)
-    - GOOS=darwin GOARCH=amd64 go build -o build/Pumpkinki_mac_intel ./src
-
-    #  macOS for COMPILE (Apple Silicon - M1/M2/M3 CPUs)
-    - GOOS=darwin GOARCH=arm64 go build -o build/Pumpkinki_mac_arm64 ./src
+  
   artifacts:
     name: "Pumpkinki-builds-$CI_COMMIT_SHORT_SHA"
     expire_in: 1 days
