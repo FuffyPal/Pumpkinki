@@ -44,12 +44,12 @@ upload_to_registry:
   stage: upload
   image: curlimages/curl:latest
   script:
-    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_linux "${REGISTRY_URL}/pet_linux"'
-    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_linux_arm64 "${REGISTRY_URL}/pet_linux_arm64"'
-    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_windows.exe "${REGISTRY_URL}/pet_windows.exe"'
-    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_windows_arm64.exe "${REGISTRY_URL}/pet_windows_arm64.exe"'
-    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_mac_intel "${REGISTRY_URL}/pet_mac_intel"'
-    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_mac_arm64 "${REGISTRY_URL}/pet_mac_arm64"'
+    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_linux "${REGISTRY_URL}/Pumpkinki_linux"'
+    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_linux_arm64 "${REGISTRY_URL}/Pumpkinki_linux_arm64"'
+    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_windows.exe "${REGISTRY_URL}/Pumpkinki_windows.exe"'
+    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_windows_arm64.exe "${REGISTRY_URL}/Pumpkinki_windows_arm64.exe"'
+    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_mac_intel "${REGISTRY_URL}/Pumpkinki_mac_intel"'
+    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_mac_arm64 "${REGISTRY_URL}/Pumpkinki_mac_arm64"'
   rules:
     - if: '$CI_COMMIT_TAG'
       changes:
