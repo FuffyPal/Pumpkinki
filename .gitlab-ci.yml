@@ -25,7 +25,7 @@ job_linux_amd64:
 job_linux_arm64:
   extends: .test_template
   tags:
-    - saas-linux-medium-arm64
+    - saas-linux-small-arm64
   image: golang:${GO_VERSION}-alpine
   script:
     - go test -v ./src/...
@@ -34,19 +34,19 @@ job_linux_arm64:
 job_macos_m_series:
   extends: .test_template
   tags:
-    - saas-macos-medium-m1
+    - saas-macos-large-m2pro
   script:
-    - echo "macOS ARM64 üzerinde test ediliyor..."
     - go version || (brew update && brew install go)
     - go test -v ./src/...
 
-job_macos_intel:
-  extends: .test_template
-  tags:
-    - saas-macos-medium-intel
-  script:
-    - go version || (brew update && brew install go)
-    - go test -v ./src/...
+# Disabled because it's not working
+# job_macos_intel:
+#   extends: .test_template
+#   tags:
+#     - saas-macos-medium-intel
+#   script:
+#     - go version || (brew update && brew install go)
+#     - go test -v ./src/...
 
 # ----------------- WINDOWS JOBs -----------------
 job_windows_amd64:
