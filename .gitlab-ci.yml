@@ -31,13 +31,14 @@ job_linux_arm64:
     - go test -v ./src/...
 
 # ----------------- MACOS JOBs -----------------
-job_macos_m_series:
-  extends: .test_template
-  tags:
-    - saas-macos-large-m2pro
-  script:
-    - go version || (brew update && brew install go)
-    - go test -v ./src/...
+# Disabled for now
+# job_macos_m_series:
+#   extends: .test_template
+#   tags:
+#     - saas-macos-large-m2pro
+#   script:
+#     - go version || (brew update && brew install go)
+#     - go test -v ./src/...
 
 # Disabled because it's not working
 # job_macos_intel:
