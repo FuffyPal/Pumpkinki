@@ -7,63 +7,56 @@ variables:
   REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/Pumpkinki/${CI_COMMIT_TAG}"
   GO_VERSION: "1.26.4"
   
-job_linux_amd64:
+.test_template:
   stage: test
+  rules:
+    - changes:
+        - src/**/*
+
+# ----------------- LINUX JOBs -----------------
+job_linux_amd64:
+  extends: .test_template
   tags:
     - saas-linux-medium-amd64
   image: golang:${GO_VERSION}-alpine
   script:
-    - go test -v ./src/
-  rules: 
-    - changes: 
-        - src/*
+    - go test -v ./src/...
 
-job_linux_arm:
-  stage: test
+job_linux_arm64:
+  extends: .test_template
   tags:
     - saas-linux-medium-arm64
   image: golang:${GO_VERSION}-alpine
   script:
-    - go test -v ./src/
-  rules: 
-    - changes: 
-        - src/*
+    - go test -v ./src/...
 
-job_macos_m1:
-  stage: test
+# ----------------- MACOS JOBs -----------------
+job_macos_m_series:
+  extends: .test_template
   tags:
     - saas-macos-medium-m1
-  before_script:
-    - brew install go || true
   script:
-    - go test -v ./src/
-  rules:
-    - changes:
-        - src/*
+    - echo "macOS ARM64 üzerinde test ediliyor..."
+    - go version || (brew update && brew install go)
+    - go test -v ./src/...
 
 job_macos_intel:
-  stage: test
+  extends: .test_template
   tags:
     - saas-macos-medium-intel
-  image: golang:${GO_VERSION}-alpine
   script:
-    - go test -v ./src/
-  rules: 
-    - changes: 
-        - src/*
+    - go version || (brew update && brew install go)
+    - go test -v ./src/...
 
-job_windows_x64:
-  stage: test
+# ----------------- WINDOWS JOBs -----------------
+job_windows_amd64:
+  extends: .test_template
   tags:
     - saas-windows-medium-amd64
   before_script:
-    - choco install golang --version ${GO_VERSION} -y --no-progress || true
-    - Import-Module "$env:ProgramData\chocolatey\helpers\chocolateyProfile.ps1"
+    - powershell -Command "try { go version } catch { choco install golang --version $env:GO_VERSION -y --no-progress; Refreshenv }"
   script:
-    - go test -v ./src/
-  rules:
-    - changes:
-        - src/*
+    - go test -v ./src/...
 
         
 build_job:
