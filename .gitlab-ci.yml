@@ -1,4 +1,5 @@
 stages:
+  - test
   - build
   - upload
 
@@ -6,6 +7,65 @@ variables:
   REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/Pumpkinki/${CI_COMMIT_TAG}"
   GO_VERSION: "1.26.4"
   
+job_linux_amd64:
+  stage: test
+  tags:
+    - saas-linux-medium-amd64
+  image: golang:${GO_VERSION}-alpine
+  script:
+    - go test -v ./src/
+  rules: 
+    - changes: 
+        - src/*
+
+job_linux_arm:
+  stage: test
+  tags:
+    - saas-linux-medium-arm64
+  image: golang:${GO_VERSION}-alpine
+  script:
+    - go test -v ./src/
+  rules: 
+    - changes: 
+        - src/*
+
+job_macos_m1:
+  stage: test
+  tags:
+    - saas-macos-medium-m1
+  before_script:
+    - brew install go || true
+  script:
+    - go test -v ./src/
+  rules:
+    - changes:
+        - src/*
+
+job_macos_intel:
+  stage: test
+  tags:
+    - saas-macos-medium-intel
+  image: golang:${GO_VERSION}-alpine
+  script:
+    - go test -v ./src/
+  rules: 
+    - changes: 
+        - src/*
+
+job_windows_x64:
+  stage: test
+  tags:
+    - saas-windows-medium-amd64
+  before_script:
+    - choco install golang --version ${GO_VERSION} -y --no-progress || true
+    - Import-Module "$env:ProgramData\chocolatey\helpers\chocolateyProfile.ps1"
+  script:
+    - go test -v ./src/
+  rules:
+    - changes:
+        - src/*
+
+        
 build_job:
   stage: build
   image: golang:${GO_VERSION}-alpine
