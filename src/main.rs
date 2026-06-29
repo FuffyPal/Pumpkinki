@@ -1,3 +1,5 @@
+use dotenv::dotenv;
+use std::env;
 fn os_detection() -> i8 {
     if cfg!(target_os = "windows") {
         1 // windows
@@ -25,6 +27,13 @@ fn find_architecture() -> i8 {
 }
 
 fn main() {
-    println!("OS Code: {}", os_detection());
-    println!("Architecture Code: {}", find_architecture());
+    let _ = dotenv();
+    let debug: i8 = env::var("DEBUG")
+        .unwrap_or_else(|_| "0".to_string())
+        .parse()
+        .expect("0,1");
+    if debug == 1 {
+        println!("OS Code: {}", os_detection());
+        println!("Architecture Code: {}", find_architecture());
+    }
 }
