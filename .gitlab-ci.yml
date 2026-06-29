@@ -1,0 +1,13 @@
+stages:
+  - build
+
+build_release:
+  stage: build
+  image: rust:1.96.0-trixie
+  script:
+    - cargo build --release
+  artifacts:
+    name: "Pumpkinki-builds-$CI_COMMIT_REF_NAME"
+    expire_in: 1 days
+    paths:
+      - target/release/
