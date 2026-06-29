@@ -11,3 +11,6 @@ build_release:
     expire_in: 1 days
     paths:
       - target/release/
+  rules: 
+    - changes: 
+        - Cargo.toml
