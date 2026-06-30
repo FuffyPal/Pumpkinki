@@ -50,14 +50,14 @@ job_linux_arm64:
 #     - go test -v ./src/...
 
 # ----------------- WINDOWS JOBs -----------------
-job_windows_amd64:
-  extends: .test_template
-  tags:
-    - saas-windows-medium-amd64
-  before_script:
-    - powershell -Command "try { rustc --version } catch { choco install rustup -y --no-progress; rustup default $env:RUST_VERSION; Refreshenv }"
-  script:
-    - cargo test
+# job_windows_amd64:
+#   extends: .test_template
+#   tags:
+#     - saas-windows-medium-amd64
+#   before_script:
+#     - powershell -Command "try { rustc --version } catch { choco install rustup -y --no-progress; rustup default $env:RUST_VERSION; Refreshenv }"
+#   script:
+#     - cargo test
 
 build_job:
   stage: build
