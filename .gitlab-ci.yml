@@ -70,24 +70,24 @@ build_job:
   script:
     #  LINUX for COMPILE
     - rustup target add x86_64-unknown-linux-gnu
-    - cargo build --release --target x86_64-unknown-linux-gnu && cp target/x86_64-unknown-linux-gnu/release/pumpkin build/Pumpkinki_linux
+    - cargo build --release --target x86_64-unknown-linux-gnu && cp target/x86_64-unknown-linux-gnu/release/Pumpkinki build/Pumpkinki_linux
 
     - rustup target add aarch64-unknown-linux-gnu
-    - cargo build --release --target aarch64-unknown-linux-gnu && cp target/aarch64-unknown-linux-gnu/release/pumpkin build/Pumpkinki_linux_arm64
+    - cargo build --release --target aarch64-unknown-linux-gnu && cp target/aarch64-unknown-linux-gnu/release/Pumpkinki build/Pumpkinki_linux_arm64
 
     #  WINDOWS for COMPILE (.exe)
     - rustup target add x86_64-pc-windows-msvc
-    - cargo build --release --target x86_64-pc-windows-msvc && cp target/x86_64-pc-windows-msvc/release/pumpkin.exe build/Pumpkinki_windows.exe
+    - cargo build --release --target x86_64-pc-windows-msvc && cp target/x86_64-pc-windows-msvc/release/Pumpkinki.exe build/Pumpkinki_windows.exe
 
     - rustup target add aarch64-pc-windows-msvc
-    - cargo build --release --target aarch64-pc-windows-msvc && cp target/aarch64-pc-windows-msvc/release/pumpkin.exe build/Pumpkinki_windows_arm64.exe
+    - cargo build --release --target aarch64-pc-windows-msvc && cp target/aarch64-pc-windows-msvc/release/Pumpkinki.exe build/Pumpkinki_windows_arm64.exe
 
     #  macOS for COMPILE
     - rustup target add x86_64-apple-darwin
-    - cargo build --release --target x86_64-apple-darwin && cp target/x86_64-apple-darwin/release/pumpkin build/Pumpkinki_mac_intel
+    - cargo build --release --target x86_64-apple-darwin && cp target/x86_64-apple-darwin/release/Pumpkinki build/Pumpkinki_mac_intel
 
     - rustup target add aarch64-apple-darwin
-    - cargo build --release --target aarch64-apple-darwin && cp target/aarch64-apple-darwin/release/pumpkin build/Pumpkinki_mac_arm64
+    - cargo build --release --target aarch64-apple-darwin && cp target/aarch64-apple-darwin/release/Pumpkinki build/Pumpkinki_mac_arm64
 
   artifacts:
     name: "Pumpkinki-builds-$CI_COMMIT_SHORT_SHA"
