@@ -78,7 +78,7 @@ build_job:
 
     # WINDOWS AMD64 (.exe)
     - rustup target add x86_64-pc-windows-gnu
-    - cargo build --release --target x86_64-pc-windows-gnu
+    - cargo build --release --target x86_64-pc-windows-gnu && cp target/x86_64-pc-windows-gnu/release/Pumpkinki.exe build/Pumpkinki_windows.exe
 
   artifacts:
     name: "Pumpkinki-builds-$CI_COMMIT_SHORT_SHA"
@@ -95,7 +95,7 @@ upload_to_registry:
   script:
     - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_linux "${REGISTRY_URL}/Pumpkinki_linux"'
     - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_linux_arm64 "${REGISTRY_URL}/Pumpkinki_linux_arm64"'
-    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file target/x86_64-pc-windows-msvc/release/Pumpkinki.exe "${REGISTRY_URL}/Pumpkinki_windows.exe"'
+    - 'curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" --upload-file build/Pumpkinki_windows.exe "${REGISTRY_URL}/Pumpkinki_windows.exe"'
   rules:
     - if: "$CI_COMMIT_TAG"
       changes:
