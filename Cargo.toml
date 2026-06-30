@@ -1,0 +1,11 @@
+[package]
+name = "Pumpkinki"
+version = "0.2.0"
+edition = "2024"
+
+[dependencies]
+
+[profile.release]
+strip = true
+opt-level = "3"
+lto = true
