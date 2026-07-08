@@ -11,6 +11,7 @@
   ],
   "mounts": [
     "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind",
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,ro=true",
     "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,ro=true"
   ],
   "customizations": {
