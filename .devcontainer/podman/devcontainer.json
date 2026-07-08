@@ -1,25 +1,17 @@
 {
-  "name": "rust-markdown-dev-container-podman",
-  "image": "mcr.microsoft.com/devcontainers/base:debian-13",
-  "features": {
-    "ghcr.io/devcontainers/features/rust:1": {
-      "version": "1.96.0",
-      "profile": "minimal"
-    },
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "installZsh": false,
-      "configureZshAsDefaultShell": false
-    }
+  "name": "rust-dev-container-podman",
+  "build": {
+      "dockerfile": "Dockerfile"
   },
   "remoteUser": "vscode",
   "runArgs": [
     "--userns=keep-id",
-    "--security-opt",
-    "label=disable"
+    "--security-opt", "label=disable",
+    "-v", "/run/user/1000/gnupg:/run/user/1000/gnupg"
   ],
   "mounts": [
-    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,ro=true",
-    "source=${localEnv:HOME}/.gnupg/S.gpg-agent,target=/home/vscode/.gnupg/S.gpg-agent,type=bind"
+    "source=${localEnv:HOME}/.gnupg,target=/home/vscode/.gnupg,type=bind",
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,ro=true"
   ],
   "customizations": {
     "vscode": {

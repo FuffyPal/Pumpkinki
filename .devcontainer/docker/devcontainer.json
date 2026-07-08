@@ -1,5 +1,5 @@
 {
-  "name": "rust-markdown-dev-container-docker",
+  "name": "rust-dev-container-docker",
   "image": "mcr.microsoft.com/devcontainers/base:debian-13",
   "features": {
     "ghcr.io/devcontainers/features/rust:1": {
