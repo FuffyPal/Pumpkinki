@@ -5,6 +5,10 @@
     "ghcr.io/devcontainers/features/rust:1": {
       "version": "1.96.0",
       "profile": "minimal"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false,
+      "configureZshAsDefaultShell": false
     }
   },
   "remoteUser": "vscode",
@@ -12,6 +16,10 @@
     "--userns=keep-id",
     "--security-opt",
     "label=disable"
+  ],
+  "mounts": [
+    "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,ro=true",
+    "source=${localEnv:HOME}/.gnupg/S.gpg-agent,target=/home/vscode/.gnupg/S.gpg-agent,type=bind"
   ],
   "customizations": {
     "vscode": {
@@ -24,7 +32,10 @@
         "esbenp.prettier-vscode",
         "yzhang.markdown-all-in-one",
         "davidanson.vscode-markdownlint"
-      ]
+      ],
+      "settings": {
+        "rust-analyzer.check.command": "clippy"
+      }
     }
   }
 }
