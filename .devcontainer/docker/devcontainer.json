@@ -1,0 +1,26 @@
+{
+  "name": "rust-markdown-dev-container-docker",
+  "image": "mcr.microsoft.com/devcontainers/base:debian-13",
+  "features": {
+    "ghcr.io/devcontainers/features/rust:1": {
+      "version": "1.96.0",
+      "profile": "minimal"
+    }
+  },
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml",
+        "vadimcn.vscode-lldb",
+        "gitlab.gitlab-workflow",
+        "leonardssh.vscord",
+        "esbenp.prettier-vscode",
+        "yzhang.markdown-all-in-one",
+        "davidanson.vscode-markdownlint"
+      ]
+    }
+  }
+}
