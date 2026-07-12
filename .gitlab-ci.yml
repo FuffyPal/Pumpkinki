@@ -7,57 +7,13 @@ variables:
   REGISTRY_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/Pumpkinki/${CI_COMMIT_TAG}"
   RUST_VERSION: "1.96.0"
 
-.test_template:
+test_job:
   stage: test
-  rules:
-    - changes:
-        - "**/*.rs"
-
-# ----------------- LINUX JOBs -----------------
-job_linux_amd64:
-  extends: .test_template
-  tags:
-    - saas-linux-medium-amd64
-  image: rust:${RUST_VERSION}-alpine
+  image: rust:${RUST_VERSION}
+  before_script:
+    - apt-get update && apt-get install -y mingw-w64 gcc-aarch64-linux-gnu git coreutils
   script:
     - cargo test
-
-job_linux_arm64:
-  extends: .test_template
-  tags:
-    - saas-linux-small-arm64
-  image: rust:${RUST_VERSION}-alpine
-  script:
-    - cargo test
-
-# ----------------- MACOS JOBs -----------------
-# Disabled for now
-# job_macos_m_series:
-#   extends: .test_template
-#   tags:
-#     - saas-macos-large-m2pro
-#   script:
-#     - go version || (brew update && brew install go)
-#     - go test -v ./src/...
-
-# Disabled because it's not working
-# job_macos_intel:
-#   extends: .test_template
-#   tags:
-#     - saas-macos-medium-intel
-#   script:
-#     - go version || (brew update && brew install go)
-#     - go test -v ./src/...
-
-# ----------------- WINDOWS JOBs -----------------
-# job_windows_amd64:
-#   extends: .test_template
-#   tags:
-#     - saas-windows-medium-amd64
-#   before_script:
-#     - powershell -Command "try { rustc --version } catch { choco install rustup -y --no-progress; rustup default $env:RUST_VERSION; Refreshenv }"
-#   script:
-#     - cargo test
 
 build_job:
   stage: build
