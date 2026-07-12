@@ -1,3 +1,5 @@
+use std::fs;
+
 pub fn os_detection() -> String {
     if cfg!(windows) {
         return String::from("-Windows.exe");
@@ -17,5 +19,13 @@ pub fn arch_detection() -> String {
         return String::from("-ARM64");
     } else {
         return String::from("other");
+    }
+}
+
+pub fn do_you_have_any_pumpkin(path: String, base: String) -> i8 {
+    let full_name = format!("{}{}{}{}", path, base, arch_detection(), os_detection(),);
+    match fs::exists(full_name) {
+        Ok(true) => 0,
+        _ => 1,
     }
 }

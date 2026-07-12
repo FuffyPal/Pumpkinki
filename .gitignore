@@ -24,6 +24,7 @@ rustc-ice-*.txt
 .idea/
 
 # Exclude Pumpkin-MC's repo
+PumpkinMC/
 Pumpkin-MC
 Pumpkinki/Pumpkin-MC
 pumpkin-X64-Windows.exe
