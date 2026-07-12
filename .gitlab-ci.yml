@@ -15,6 +15,9 @@ test_job:
   script:
     - cargo test
 
+  rules:
+    - changes:
+        - "**/*.rs"
 build_job:
   stage: build
   image: rust:${RUST_VERSION}
