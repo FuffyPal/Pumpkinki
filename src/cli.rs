@@ -30,7 +30,14 @@ fn validate_allowed_arch(s: &str) -> Result<String, String> {
 #[command(
     name = "Pumpkinki",
     version,
-    about = "A CLI management tool for Pumpkin Minecraft servers, handling processes, RCON, and plugins."
+    about = "A CLI management tool for Pumpkin Minecraft servers, handling processes, RCON, and plugins.",
+    long_about = r#"Pumpkinki is an all-in-one command-line tool designed to simplify Pumpkin (pumpkinmc.org) server administration.
+
+It streamlines:
+    * Installation
+    * Daemonized process management
+    * RCON integration
+    * Player whitelist controls and plugin management directly from your terminal."#
 )]
 pub struct Cli {
     #[command(subcommand)]
