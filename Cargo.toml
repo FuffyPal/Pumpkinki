@@ -1,9 +1,10 @@
 [package]
 name = "Pumpkinki"
-version = "0.2.0"
+version = "0.3.10"
 edition = "2024"
 
 [dependencies]
+clap = { version = "4.6.2", features = ["derive"] }
 
 [profile.release]
 strip = true

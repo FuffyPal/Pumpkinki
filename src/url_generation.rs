@@ -1,13 +1,6 @@
-use crate::check;
-
-pub fn get_download() -> String {
+pub fn get_download(os: String, arch: String) -> String {
     let base_url = "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin";
-    let url = format!(
-        "{}{}{}",
-        base_url,
-        check::arch_detection(),
-        check::os_detection()
-    );
+    let url = format!("{}{}{}", base_url, arch, os);
     String::from(url)
 }
 
@@ -17,7 +10,6 @@ mod tests {
 
     #[test]
     fn test_get_download() {
-        let url = get_download();
         let os = crate::check::os_detection();
         let arch = crate::check::arch_detection();
 
@@ -42,6 +34,7 @@ mod tests {
             }
             _ => panic!("Unsupported OS/Arch combination in test"),
         };
+        let url = get_download(os, arch);
 
         assert_eq!(url, expected_url);
     }

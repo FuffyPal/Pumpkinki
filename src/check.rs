@@ -22,7 +22,7 @@ pub fn arch_detection() -> String {
     }
 }
 
-pub fn do_you_have_any_pumpkin(path: String, base: String) -> i8 {
+pub fn do_you_have_any_pumpkin(path: &String, base: &String) -> i8 {
     let full_name = format!("{}{}{}{}", path, base, arch_detection(), os_detection(),);
     match fs::exists(full_name) {
         Ok(true) => 0,
