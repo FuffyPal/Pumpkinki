@@ -11,33 +11,62 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_get_download() {
-        let os = crate::check::os_detection().unwrap();
-        let arch = crate::check::arch_detection().unwrap();
+    fn test_get_download_linux_x64() -> io::Result<()> {
+        let url = get_download("-Linux".to_string(), "-X64".to_string())?;
+        assert_eq!(
+            url,
+            "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-X64-Linux"
+        );
+        Ok(())
+    }
 
-        let expected_url = match (os.as_str(), arch.as_str()) {
-            ("-Windows.exe", "-X64") => {
-                "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-X64-Windows.exe"
-            }
-            ("-Windows.exe", "-ARM64") => {
-                "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-ARM64-Windows.exe"
-            }
-            ("-Linux", "-X64") => {
-                "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-X64-Linux"
-            }
-            ("-Linux", "-ARM64") => {
-                "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-ARM64-Linux"
-            }
-            ("-macOS", "-ARM64") => {
-                "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-ARM64-macOS"
-            }
-            ("-macOS", "-X64") => {
-                "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-X64-macOS"
-            }
-            _ => panic!("Unsupported OS/Arch combination in test"),
-        };
-        let url = get_download(os, arch).unwrap();
+    #[test]
+    fn test_get_download_linux_aarch64() -> io::Result<()> {
+        let url = get_download("-Linux".to_string(), "-ARM64".to_string())?;
+        assert_eq!(
+            url,
+            "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-ARM64-Linux"
+        );
+        Ok(())
+    }
 
-        assert_eq!(url, expected_url);
+    #[test]
+    fn test_get_download_windows_x64() -> io::Result<()> {
+        let url = get_download("-Windows.exe".to_string(), "-X64".to_string())?;
+        assert_eq!(
+            url,
+            "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-X64-Windows.exe"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_get_download_windows_aarch64() -> io::Result<()> {
+        let url = get_download("-Windows.exe".to_string(), "-ARM64".to_string())?;
+        assert_eq!(
+            url,
+            "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-ARM64-Windows.exe"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_get_download_macos_aarch64() -> io::Result<()> {
+        let url = get_download("-macOS".to_string(), "-ARM64".to_string())?;
+        assert_eq!(
+            url,
+            "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-ARM64-macOS"
+        );
+        Ok(())
+    }
+
+    #[test]
+    fn test_get_download_macos_x64() -> io::Result<()> {
+        let url = get_download("-macOS".to_string(), "-X64".to_string())?;
+        assert_eq!(
+            url,
+            "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin-X64-macOS"
+        );
+        Ok(())
     }
 }
