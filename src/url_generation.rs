@@ -1,7 +1,9 @@
-pub fn get_download(os: String, arch: String) -> String {
+use std::io;
+
+pub fn get_download(os: String, arch: String) -> io::Result<String> {
     let base_url = "https://github.com/Pumpkin-MC/Pumpkin/releases/download/nightly/pumpkin";
     let url = format!("{}{}{}", base_url, arch, os);
-    String::from(url)
+    Ok(String::from(url))
 }
 
 #[cfg(test)]
@@ -10,8 +12,8 @@ mod tests {
 
     #[test]
     fn test_get_download() {
-        let os = crate::check::os_detection();
-        let arch = crate::check::arch_detection();
+        let os = crate::check::os_detection().unwrap();
+        let arch = crate::check::arch_detection().unwrap();
 
         let expected_url = match (os.as_str(), arch.as_str()) {
             ("-Windows.exe", "-X64") => {
@@ -34,7 +36,7 @@ mod tests {
             }
             _ => panic!("Unsupported OS/Arch combination in test"),
         };
-        let url = get_download(os, arch);
+        let url = get_download(os, arch).unwrap();
 
         assert_eq!(url, expected_url);
     }
