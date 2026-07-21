@@ -7,7 +7,7 @@ use crate::cli::{Cli, Commmand};
 use clap::Parser;
 use std::io;
 
-fn install(path: String, base: String, os: String, arch: String) -> io::Result<()> {
+fn install(path: &str, base: &str, os: &str, arch: &str) -> io::Result<()> {
     let exists = check::do_you_have_any_pumpkin(&path, &base)?;
     if exists {
         println!("this exitis");
@@ -20,21 +20,21 @@ fn install(path: String, base: String, os: String, arch: String) -> io::Result<(
     Ok(())
 }
 fn main() -> io::Result<()> {
-    let base: String = String::from("pumpkin");
-    let path: String = String::from("./PumpkinMC");
+    let base = "pumpkin";
+    let path = "./PumpkinMC";
     let args = Cli::parse();
     match args.full {
         Commmand::Install { check, os, arch } => {
             if check {
-                let autoos = crate::check::os_detection()?;
-                let autoarch = crate::check::arch_detection()?;
-                install(path, base, autoos, autoarch)?;
+                let autoos = crate::check::os_detection();
+                let autoarch = crate::check::arch_detection();
+                install(path, base, &autoos, &autoarch)?;
             } else {
                 install(
                     path,
                     base,
-                    os.expect("Where is a OS?"),
-                    arch.expect("Where is a ARCHITECTURE"),
+                    &os.expect("Where is a OS?"),
+                    &arch.expect("Where is a ARCHITECTURE"),
                 )?;
             }
         }

@@ -1,5 +1,5 @@
 use std::{fs, io};
 
-pub fn create_path(path: &String) -> io::Result<()> {
+pub fn create_path(path: &str) -> io::Result<()> {
     fs::create_dir_all(path)
 }
